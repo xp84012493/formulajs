@@ -419,7 +419,10 @@ export function VLOOKUP(lookup_value, table_array, col_index_num, range_lookup) 
   for (let i = 0; i < table_array.length; i++) {
     const row = table_array[i]
 
-    if (row[0] === lookup_value) {
+    if (typeof row[0] === 'string' && typeof lookup_value === 'string' && row[0].toUpperCase() === lookup_value.toUpperCase()) {
+      result = col_index_num < row.length + 1 ? row[col_index_num - 1] : error.ref
+      break
+    } else if (row[0] === lookup_value) {
       result = col_index_num < row.length + 1 ? row[col_index_num - 1] : error.ref
       break
     } else if (
